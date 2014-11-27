@@ -1,7 +1,7 @@
 <?php namespace SleepingOwl\Admin\Models\Form\FormItem;
 
 use SleepingOwl\Admin\Exceptions\MethodNotFoundException;
-use Illuminate\Support\Arr;
+use SleepingOwl\Support\Arr;
 
 /**
  * Class Select

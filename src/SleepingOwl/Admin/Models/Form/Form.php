@@ -1,9 +1,9 @@
 <?php namespace SleepingOwl\Admin\Models\Form;
 
+use Illuminate\Support\MessageBag;
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Admin\Models\Form\Interfaces\FormItemInterface;
-use Illuminate\Support\Arr;
-use Illuminate\Support\ViewErrorBag;
+use SleepingOwl\Support\Arr;
 
 /**
  * Class Form
@@ -36,7 +36,7 @@ class Form
 	 */
 	protected $backUrl;
 	/**
-	 * @var ViewErrorBag
+	 * @var MessageBag
 	 */
 	protected $errors;
 	/**
@@ -89,7 +89,7 @@ class Form
 	{
 		if (is_null($errors))
 		{
-			$errors = new ViewErrorBag;
+			$errors = new MessageBag;
 		}
 		$this->errors = $errors;
 	}

@@ -2,8 +2,8 @@
 
 use App;
 use SleepingOwl\Admin\Columns\Interfaces\ColumnInterface;
-use Illuminate\Support\Arr;
 use SleepingOwl\Admin\Models\ModelItem;
+use SleepingOwl\Support\Arr;
 
 /**
  * Class Column

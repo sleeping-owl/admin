@@ -3,7 +3,7 @@
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Html\HtmlBuilder;
 use SleepingOwl\Admin\Router;
-use Illuminate\Support\Arr;
+use SleepingOwl\Support\Arr;
 
 /**
  * Class MenuItem

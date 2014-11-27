@@ -3,7 +3,7 @@
 use SleepingOwl\Admin\Exceptions\MethodNotFoundException;
 use SleepingOwl\Admin\Models\ModelItem;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Arr;
+use SleepingOwl\Support\Arr;
 
 /**
  * Class Filter

@@ -1,7 +1,7 @@
 <?php namespace SleepingOwl\Html;
 
 use Carbon\Carbon;
-use Illuminate\Support\Arr;
+use SleepingOwl\Support\Arr;
 use Illuminate\Html\FormBuilder as IlluminateFormBuilder;
 use Illuminate\Support\ViewErrorBag;
 use Lang;

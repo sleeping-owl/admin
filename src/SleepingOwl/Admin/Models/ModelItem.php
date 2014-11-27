@@ -7,7 +7,7 @@ use SleepingOwl\Admin\Exceptions\MethodNotFoundException;
 use SleepingOwl\Admin\Models\Filters\Filter;
 use SleepingOwl\Admin\Models\Form\Form;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Arr;
+use SleepingOwl\Support\Arr;
 use Illuminate\Support\Str;
 use SleepingOwl\Models\Interfaces\ModelWithOrderFieldInterface;
 

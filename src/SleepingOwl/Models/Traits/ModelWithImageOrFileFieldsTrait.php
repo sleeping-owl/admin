@@ -1,6 +1,6 @@
 <?php namespace SleepingOwl\Models\Traits;
 
-use Illuminate\Support\Arr;
+use SleepingOwl\Support\Arr;
 use SleepingOwl\Models\Attributes\File;
 use SleepingOwl\Models\Attributes\Image;
 use SleepingOwl\Models\Interfaces\ModelWithFileFieldsInterface;

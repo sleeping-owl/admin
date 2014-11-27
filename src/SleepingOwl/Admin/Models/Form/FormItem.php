@@ -18,7 +18,7 @@ use SleepingOwl\Admin\Models\Form\FormItem\Textarea;
 use SleepingOwl\Admin\Models\Form\FormItem\Time;
 use SleepingOwl\Admin\Models\Form\FormItem\Timestamp;
 use SleepingOwl\Admin\Models\Form\FormItem\View;
-use Illuminate\Support\Arr;
+use SleepingOwl\Support\Arr;
 use SleepingOwl\Admin\Models\ModelItem;
 
 /**

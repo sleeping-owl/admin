@@ -124,21 +124,16 @@ class Router
 		], function () use ($models)
 		{
 			if (empty($models)) $models = ['__empty_models__'];
-			$this->laravelRouter->group([
-				'where' => ['model' => implode('|', $models)]
-			], function ()
+			foreach (static::$modelRoutes as $route)
 			{
-				foreach (static::$modelRoutes as $route)
-				{
-					$url = $route['url'];
-					$action = $route['action'];
-					$method = $route['method'];
-					$this->laravelRouter->$method($url, [
-						'as'   => $this->routePrefix . '.table.' . $action,
-						'uses' => 'AdminController@' . $action
-					]);
-				}
-			});
+				$url = $route['url'];
+				$action = $route['action'];
+				$method = $route['method'];
+				$this->laravelRouter->$method($url, [
+					'as'   => $this->routePrefix . '.table.' . $action,
+					'uses' => 'AdminController@' . $action,
+				])->where('model', implode('|', $models));
+			}
 
 			$this->laravelRouter->get('{wildcard?}', [
 				'as'   => $this->routePrefix . '.wildcard',
