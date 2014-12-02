@@ -27,7 +27,8 @@
 			"SleepingOwl\\DateFormatter": "src/",
 			"SleepingOwl\\Html": "src/",
 			"SleepingOwl\\Models": "src/",
-			"SleepingOwl\\RandomFilenamer": "src/"
+			"SleepingOwl\\RandomFilenamer": "src/",
+			"SleepingOwl\\Support": "src/"
 		}
 	}
 }
