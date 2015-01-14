@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 use SleepingOwl\Models\Interfaces\ModelWithFileFieldsInterface;
 use SleepingOwl\Models\Interfaces\ModelWithImageFieldsInterface;
+use SleepingOwl\Support\Arr;
 
 class ModelCompiler
 {
@@ -416,7 +417,7 @@ class ModelCompiler
 			'time'     => 'time',
 			'datetime' => 'timestamp',
 		];
-		return $lookup[$type];
+		return Arr::get($lookup, $type, 'text');
 	}
 
 	/**
