@@ -4,6 +4,7 @@ use App;
 use AdminAuth;
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Admin\Columns\Column\Action;
+use SleepingOwl\Admin\Exceptions\ValidationException;
 use SleepingOwl\Admin\Repositories\Interfaces\ModelRepositoryInterface;
 use SleepingOwl\Admin\Models\ModelItem;
 use SleepingOwl\Admin\Session\QueryState;
@@ -91,7 +92,7 @@ class AdminController extends BaseController
 			$this->modelItem = $this->admin->models->modelWithAlias($this->modelName);
 		} catch (\SleepingOwl\Admin\Exceptions\ModelNotFoundException $e)
 		{
-			Redirect::to($this->router->routeHome())->send();
+			Redirect::to($this->admin_router->routeHome())->send();
 		}
 		return $this->modelItem;
 	}
@@ -112,7 +113,7 @@ class AdminController extends BaseController
 	 */
 	protected function redirectToTable()
 	{
-		return Redirect::to($this->router->routeToModel($this->modelName, $this->queryState->load()));
+		return Redirect::to($this->admin_router->routeToModel($this->modelName, $this->queryState->load()));
 	}
 
 	/**
@@ -194,7 +195,7 @@ class AdminController extends BaseController
 		$data = [
 			'title'         => $this->modelItem->getTitle(),
 			'columns'       => $this->modelItem->getColumns(),
-			'newEntryRoute' => $this->router->routeToCreate($this->modelName, Input::query()),
+			'newEntryRoute' => $this->admin_router->routeToCreate($this->modelName, Input::query()),
 			'modelItem'     => $this->modelItem,
 			'rows'          => []
 		];
@@ -267,7 +268,7 @@ class AdminController extends BaseController
 		$form = $this->modelItem->getForm();
 		$form->setInstance($this->modelRepository->getInstance());
 		$form->setMethod('post');
-		$form->setSaveUrl($this->router->routeToStore($this->modelName));
+		$form->setSaveUrl($this->admin_router->routeToStore($this->modelName));
 		$form->setErrors(Session::get('errors'));
 		$form->setBackUrl($this->redirectToTable()->getTargetUrl());
 		$form->setValues(Input::query());
@@ -288,7 +289,13 @@ class AdminController extends BaseController
 		{
 			return $this->redirectToTable();
 		}
-		$this->modelRepository->store();
+		try
+		{
+			$this->modelRepository->store();
+		} catch (ValidationException $e)
+		{
+			return \Redirect::back()->withInput()->withErrors($e->getErrors());
+		}
 		return $this->redirectToTable();
 	}
 
@@ -309,7 +316,7 @@ class AdminController extends BaseController
 		$form = $this->modelItem->getForm();
 		$form->setInstance($instance);
 		$form->setMethod('put');
-		$form->setSaveUrl($this->router->routeToUpdate($this->modelName, [$id]));
+		$form->setSaveUrl($this->admin_router->routeToUpdate($this->modelName, [$id]));
 		$form->setErrors(Session::get('errors'));
 		$form->setBackUrl($this->redirectToTable()->getTargetUrl());
 		$form->setValues(Input::query());
@@ -334,7 +341,13 @@ class AdminController extends BaseController
 			return $this->redirectToTable();
 		}
 
-		$this->modelRepository->update($id);
+		try
+		{
+			$this->modelRepository->update($id);
+		} catch (ValidationException $e)
+		{
+			return \Redirect::back()->withInput()->withErrors($e->getErrors());
+		}
 		return $this->redirectToTable();
 	}
 

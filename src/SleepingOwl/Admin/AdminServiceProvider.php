@@ -61,7 +61,22 @@ class AdminServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
-		$this->package('sleeping-owl/admin');
+		$this->loadViewsFrom(__DIR__ . '/../../views', 'admin');
+		$this->loadTranslationsFrom(__DIR__ . '/../../lang', 'admin');
+		$this->mergeConfigFrom(__DIR__ . '/../../config/config.php', 'admin');
+
+		$this->publishes([
+			__DIR__ . '/../../config/config.php' => config_path('admin.php'),
+		], 'config');
+
+		$this->publishes([
+			__DIR__ . '/../../migrations/' => base_path('/database/migrations'),
+		], 'migrations');
+
+		$this->publishes([
+			__DIR__.'/../../../public/' => public_path('packages/sleeping-owl/admin/'),
+		], 'assets');
+
 		Admin::instance()->router->registerRoutes();
 		$this->registerValidator();
 
@@ -81,9 +96,6 @@ class AdminServiceProvider extends ServiceProvider
 
 	protected function registerValidateExceptionHandler()
 	{
-		\App::error(function (ValidationException $e) {
-			return \Redirect::back()->withInput()->withErrors($e->getErrors());
-		});
 	}
 
 	/**

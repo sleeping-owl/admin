@@ -1,7 +1,9 @@
-## Laravel 4 Admin Module
+## Laravel 5 Admin Module
 
 [![Latest Stable Version](https://poser.pugx.org/sleeping-owl/admin/v/stable.svg)](https://packagist.org/packages/sleeping-owl/admin)
 [![License](https://poser.pugx.org/sleeping-owl/admin/license.svg)](https://packagist.org/packages/sleeping-owl/admin)
+
+*Note: if you are looking for the version for Laravel 4.2 check out [laravel-4.2 branch](https://github.com/sleeping-owl/admin/tree/laravel-4.2).*
 
 SleepingOwl Admin is administrative interface builder for Laravel.
 
@@ -24,15 +26,16 @@ It includes:
 
 ## Installation
 
- 1. Require this package in your composer.json and run composer update (or run `composer require sleeping-owl/admin:1.x` directly):
+ 1. Require this package in your composer.json and run composer update (or run `composer require sleeping-owl/admin:dev-laravel-5` directly):
 
-		"sleeping-owl/admin": "1.*"
+		"sleeping-owl/admin": "2.*"
 
- 2. After composer update, add service providers to the `app/config/app.php`
+ 2. After composer update, add service providers to the `config/app.php`
 
 	    'SleepingOwl\Admin\AdminServiceProvider',
+	    'Illuminate\Html\HtmlServiceProvider',
 
- 3. Add this to the facades in `app/config/app.php`:
+ 3. Add this to the facades in `config/app.php`:
 
 		'Admin'				=> 'SleepingOwl\Admin\Admin',
 		'AdminAuth'			=> 'SleepingOwl\AdminAuth\Facades\AdminAuth',
@@ -40,6 +43,9 @@ It includes:
 		'Column'   			=> 'SleepingOwl\Admin\Columns\Column',
 		'FormItem' 			=> 'SleepingOwl\Admin\Models\Form\FormItem',
 		'ModelItem'			=> 'SleepingOwl\Admin\Models\ModelItem',
+		
+		'Form'      => 'Illuminate\Html\FormFacade',
+		'Html'      => 'Illuminate\Html\HtmlFacade',
 
  4. Run this command in terminal (if you want to know what exactly this command makes, see [install command documentation](http://sleeping-owl.github.io/en/Commands/Install.html)):
 

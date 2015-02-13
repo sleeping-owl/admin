@@ -1,12 +1,12 @@
 <?php namespace SleepingOwl\Models\Traits;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use SleepingOwl\Models\Attributes\File;
 use SleepingOwl\Models\Attributes\Image;
 use SleepingOwl\Models\Interfaces\ModelWithFileFieldsInterface;
 use SleepingOwl\Models\Interfaces\ModelWithImageFieldsInterface;
 use SleepingOwl\RandomFilenamer\RandomFilenamer;
-use Str;
 use Config;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -67,7 +67,7 @@ trait ModelWithImageOrFileFieldsTrait
 		{
 			$func = $this->getImageFieldNamingFunc($field);
 			$filename = $this->getFilenameFromFile($func, $field, $image);
-			$image->move(Config::get('admin::imagesDirectory') . '/' . $this->getImageFieldDirectory($field), $filename);
+			$image->move(Config::get('admin.imagesDirectory') . '/' . $this->getImageFieldDirectory($field), $filename);
 			$this->$field->setFilename($filename);
 		}
 		$this->attributes[$field] = $filename;
@@ -86,7 +86,7 @@ trait ModelWithImageOrFileFieldsTrait
 			$this->$field->delete();
 			$func = $this->getFileFieldNamingFunc($field);
 			$filename = $this->getFilenameFromFile($func, $field, $file);
-			$file->move(Config::get('admin::filesDirectory') . '/' . $this->getFileFieldDirectory($field), $filename);
+			$file->move(Config::get('admin.filesDirectory') . '/' . $this->getFileFieldDirectory($field), $filename);
 			$this->$field->setFilename($filename);
 		}
 		$this->attributes[$field] = $filename;
