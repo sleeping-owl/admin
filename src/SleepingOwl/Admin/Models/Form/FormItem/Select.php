@@ -49,6 +49,10 @@ class Select extends BaseFormItem
 			$this->list = Arr::get($arguments, 0, null);
 			return $this;
 		}
+		elseif ($name == 'default')
+		{
+			return call_user_func_array([$this, 'setDefault'], $arguments);
+		}
 		throw new MethodNotFoundException(get_class($this), $name);
 	}
 
