@@ -1,6 +1,6 @@
 <?php
 
-Admin::model(:modelClass::class)->title(':title')->with(:with)->filters(function ()
+Admin::model(':modelClass')->title(':title')->with(:with)->filters(function ()
 {
 :filters
 })->columns(function ()
