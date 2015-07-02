@@ -10,17 +10,17 @@ SleepingOwl Admin is administrative interface builder for Laravel.
 It includes:
 
  - [sb-admin-2 template](http://startbootstrap.com/template-overviews/sb-admin-2/)
- - [jQuery 1.11.0](http://jquery.org)
- - [Bootstrap v3.2.0](http://getbootstrap.com)
+ - [jQuery 1.11.3](http://jquery.com/)
+ - [Bootstrap v3.3.5](http://getbootstrap.com)
  - [Bootstrap Multiselect v0.9.8](https://github.com/davidstutz/bootstrap-multiselect)
- - [DataTables 1.10.0-dev](http://www.datatables.net)
- - [Lightbox for Bootstrap 3](https://github.com/ashleydw/lightbox)
- - [Font Awesome 4.1.0](http://fontawesome.io)
- - [Metismenu 1.0.3](https://github.com/onokumus/metisMenu)
- - [morris.js v0.5.0]()
+ - [DataTables 1.10.7](http://www.datatables.net)
+ - [Lightbox 3.3.0 for Bootstrap 3](https://github.com/ashleydw/lightbox)
+ - [Font Awesome 4.3.0](http://fontawesome.io)
+ - [Metismenu 2.0.2](https://github.com/onokumus/metisMenu)
+ - [morris.js v0.5.1](http://morrisjs.github.io/morris.js/)
  - [bootbox.js v4.3.0](http://bootboxjs.com)
- - [Bootstrap datetimepicker](http://eonasdan.github.io/bootstrap-datetimepicker/)
- - [CKEditor](http://ckeditor.com)
+ - [Bootstrap DatetimePicker 4.14.30-dev](http://eonasdan.github.io/bootstrap-datetimepicker/)
+ - [CKEditor 4.5.0 Full](http://ckeditor.com)
 
 ## Installation
 
@@ -30,11 +30,17 @@ It includes:
 
  2. After composer update, add service providers to the `config/app.php`
 
+            Laravel 4.1 - 5.0
 	    'SleepingOwl\Admin\AdminServiceProvider',
 	    'Illuminate\Html\HtmlServiceProvider',
 
+            Laravel 5.1.*
+            SleepingOwl\Admin\AdminServiceProvider::class,
+	    Illuminate\Html\HtmlServiceProvider::class,
+
  3. Add this to the facades in `config/app.php`:
 
+            Laravel 4.1 - 5.0
 		'Admin'				=> 'SleepingOwl\Admin\Admin',
 		'AdminAuth'			=> 'SleepingOwl\AdminAuth\Facades\AdminAuth',
 		'AdminRouter'       => 'SleepingOwl\Admin\Facades\AdminRouter',
@@ -46,8 +52,23 @@ It includes:
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'Html'      => 'Illuminate\Html\HtmlFacade',
 
+            Laravel 5.1.*
+		'Admin'				=> SleepingOwl\Admin\Admin::class,
+		'AdminAuth'			=> SleepingOwl\AdminAuth\Facades\AdminAuth::class,
+		'AdminRouter'       => SleepingOwl\Admin\Facades\AdminRouter::class,
+		'AssetManager' 		=> SleepingOwl\Admin\AssetManager\AssetManager::class,
+		'Column'   			=> SleepingOwl\Admin\Columns\Column::class,
+		'FormItem' 			=> SleepingOwl\Admin\Models\Form\FormItem::class,
+		'ModelItem'			=> SleepingOwl\Admin\Models\ModelItem::class,
+		
+		'Form'      => Illuminate\Html\FormFacade::class,
+		'Html'      => Illuminate\Html\HtmlFacade::class,
+
+                
+
  4. Run this command in terminal (if you want to know what exactly this command makes, see [install command documentation](http://sleeping-owl.github.io/en/Commands/Install.html)):
 
+		$ php artisan vendor:publish
 		$ php artisan admin:install
 
 ## Documentation
@@ -57,7 +78,7 @@ You can also find it in the `/src/docs` directory.
 
 ## Demo Application
 
-View [live demo](http://sleepingowladmindemo.cloudcontrolled.com).
+View [live demo](http://sleepingowladmindemo.cloudcontrolled.com/admin/login).
 
 ## Support Library
 
