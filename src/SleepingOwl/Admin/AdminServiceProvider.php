@@ -66,7 +66,7 @@ class AdminServiceProvider extends ServiceProvider
 	public function boot()
 	{
 		$this->loadViewsFrom(__DIR__ . '/../../views', 'admin');
-		$this->loadTranslationsFrom(__DIR__ . '/../../lang', 'admin');
+		$this->loadTranslationsFrom(base_path('resources/lang/'), 'admin');
 		$this->mergeConfigFrom(__DIR__ . '/../../config/config.php', 'admin');
 
 		$this->publishes([
@@ -80,6 +80,10 @@ class AdminServiceProvider extends ServiceProvider
 		$this->publishes([
 			__DIR__.'/../../../public/' => public_path('packages/sleeping-owl/admin/'),
 		], 'assets');
+
+		$this->publishes([
+			__DIR__ . '/../../lang/' => base_path('resources/lang/'),
+		], 'langs');
 
 		app('SleepingOwl\Admin\Helpers\StartSession')->run();
 
