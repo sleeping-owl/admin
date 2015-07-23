@@ -243,7 +243,7 @@ trait ModelWithImageOrFileFieldsTrait
 				}
 			}
 		}
-		if (preg_match('/get(?<field>[a-zA-Z]+)Attribute/', $method, $attr))
+		if (preg_match('/get(?<field>[a-zA-Z0-9]+)Attribute/', $method, $attr))
 		{
 			$fields = [Str::lower($attr['field']), Str::camel($attr['field']), Str::snake($attr['field'])];
 			foreach ($fields as $field)
