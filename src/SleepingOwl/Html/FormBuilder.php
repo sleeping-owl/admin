@@ -300,7 +300,7 @@ class FormBuilder extends IlluminateFormBuilder
 			$innerContent .= '<div class="clearfix"></div>';
 			$content .= $this->html->tag('div', ['class' => 'img-container'], $innerContent);
 		}
-		$content .= $this->file($name, null, $options);
+		$content .= $this->file($name, $options);
 		return $this->makeGroup($name, $label, $content);
 	}
 
@@ -325,7 +325,7 @@ class FormBuilder extends IlluminateFormBuilder
 			$file = $this->html->tag('div', ['class' => 'thumbnail file-info'], $link);
 			$content .= $this->html->tag('div', [], $file);
 		}
-		$content .= $this->file($name, null, $options);
+		$content .= $this->file($name, $options);
 		return $this->makeGroup($name, $label, $content);
 	}
 
