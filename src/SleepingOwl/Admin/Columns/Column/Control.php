@@ -103,11 +103,11 @@ class Control extends BaseColumn
 		$buttons = [];
 		if ($sort > 0)
 		{
-			$buttons[] = $this->moveButton($this->router->routeToMoveup($this->modelItem->getAlias(), $instance->getKey()), Lang::get('admin::lang.table.moveUp'), '&uarr;');
+			$buttons[] = $this->moveButton($this->router->routeToMoveup($this->modelItem->getAlias(), $instance->getKey()), Lang::get('admin::lang.table.moveUp'), '<i class="fa fa-angle-up"></i>');
 		}
 		if ($sort < $totalCount - 1)
 		{
-			$buttons[] = $this->moveButton($this->router->routeToMovedown($this->modelItem->getAlias(), $instance->getKey()), Lang::get('admin::lang.table.moveDown'), '&darr;');
+			$buttons[] = $this->moveButton($this->router->routeToMovedown($this->modelItem->getAlias(), $instance->getKey()), Lang::get('admin::lang.table.moveDown'), '<i class="fa fa-angle-down"></i>');
 		}
 		return implode(' ', $buttons);
 	}
@@ -135,4 +135,4 @@ class Control extends BaseColumn
 		$content .= $this->formBuilder->close();
 		return $content;
 	}
-} 
+}

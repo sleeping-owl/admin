@@ -53,10 +53,10 @@ return [
 		'search'         => 'Поиск: ',
 		'emptyTable'     => 'Нет записей',
 		'paginate'       => [
-			'first'    => 'Первая',
-			'previous' => '&larr;',
-			'next'     => '&rarr;',
-			'last'     => 'Последняя'
+			'first'    => '<i class="fa fa-angle-double-left"></i>',
+			'previous' => '<i class="fa fa-angle-left"></i>',
+			'next'     => '<i class="fa fa-angle-right"></i>',
+			'last'     => '<i class="fa fa-angle-double-right"></i>'
 		]
 	],
 	'select'   => [

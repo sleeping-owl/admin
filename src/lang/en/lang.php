@@ -53,10 +53,10 @@ return [
 		'search'         => 'Search: ',
 		'emptyTable'     => 'No data available in table',
 		'paginate'       => [
-			'first'    => 'First',
-			'previous' => '&larr;',
-			'next'     => '&rarr;',
-			'last'     => 'Last'
+			'first'    => '<i class="fa fa-angle-double-left"></i>',
+			'previous' => '<i class="fa fa-angle-left"></i>',
+			'next'     => '<i class="fa fa-angle-right"></i>',
+			'last'     => '<i class="fa fa-angle-double-right"></i>'
 		]
 	],
 	'select'   => [
