@@ -1,7 +1,7 @@
 @if ( ! empty($title))
 	<div class="row">
 		<div class="col-lg-12">
-			<h2 style="margin-top:0;"><small>{{ $title }}</small></h2>
+			<h2 style="margin-top:0;"><small>{!! $title !!}</small></h2>
 		</div>
 	</div>
 @endif
