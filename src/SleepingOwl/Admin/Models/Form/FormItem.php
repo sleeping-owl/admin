@@ -63,6 +63,7 @@ class FormItem
 			} else
 			{
 				$formItem = App::make($handler);
+				$formItem->__construct(Arr::get($params, 0, null), Arr::get($params, 1, ''));
 			}
 		} else
 		{
