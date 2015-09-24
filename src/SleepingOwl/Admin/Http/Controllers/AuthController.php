@@ -1,12 +1,12 @@
 <?php namespace SleepingOwl\Admin\Http\Controllers;
 
+use AdminAuth;
 use AdminTemplate;
 use App;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\MessageBag;
 use Input;
 use Redirect;
-use SleepingOwl\AdminAuth\Facades\AdminAuth;
 use Validator;
 
 class AuthController extends Controller
