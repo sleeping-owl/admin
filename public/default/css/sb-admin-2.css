@@ -27,6 +27,10 @@ body {
     }
 }
 
+.navbar-top-links {
+    margin-right: 0;
+}
+
 .navbar-top-links li {
     display: inline-block;
 }
@@ -220,6 +224,11 @@ body {
     height: 100%;
 }
 
+.dataTables_wrapper {
+    position: relative;
+    clear: both;
+}
+
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting_desc,
@@ -342,8 +351,4 @@ table.dataTable thead .sorting:after {
 
 .panel-yellow a:hover {
     color: #df8a13;
-}
-
-.tab-content {
-	padding: 10px 0;
 }

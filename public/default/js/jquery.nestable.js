@@ -148,7 +148,7 @@
                     items.each(function()
                     {
                         var li   = $(this),
-                            item = $.extend({}, {id: li.data('id')}),
+                            item = $.extend({}, li.data()),
                             sub  = li.children(list.options.listNodeName);
                         if (sub.length) {
                             item.children = step(sub, depth + 1);
