@@ -9,6 +9,7 @@ class ModelConfiguration
 {
 
 	protected $class;
+
 	protected $alias;
 	protected $title;
 	protected $display;
@@ -21,6 +22,14 @@ class ModelConfiguration
 	{
 		$this->class = $class;
 		$this->setDefaultAlias();
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getClass()
+	{
+		return $this->class;
 	}
 
 	public function repository()
