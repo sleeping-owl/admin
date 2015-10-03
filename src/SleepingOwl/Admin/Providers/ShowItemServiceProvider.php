@@ -9,23 +9,23 @@ class ShowItemServiceProvider extends ServiceProvider
 	public function register()
 	{
 		ShowItem::register('text', \SleepingOwl\Admin\ShowItems\Text::class);
-		//FormItem::register('time', 'SleepingOwl\Admin\FormItems\Time');
-		//FormItem::register('date', 'SleepingOwl\Admin\FormItems\Date');
-		//FormItem::register('timestamp', 'SleepingOwl\Admin\FormItems\Timestamp');
-		//FormItem::register('textaddon', 'SleepingOwl\Admin\FormItems\TextAddon');
-		//FormItem::register('select', 'SleepingOwl\Admin\FormItems\Select');
-		//FormItem::register('multiselect', 'SleepingOwl\Admin\FormItems\MultiSelect');
-		//FormItem::register('hidden', 'SleepingOwl\Admin\FormItems\Hidden');
-		//FormItem::register('checkbox', 'SleepingOwl\Admin\FormItems\Checkbox');
+		//ShowItem::register('time', 'SleepingOwl\Admin\ShowItems\Time');
+		//ShowItem::register('date', 'SleepingOwl\Admin\ShowItems\Date');
+		//ShowItem::register('timestamp', 'SleepingOwl\Admin\ShowItems\Timestamp');
+		//ShowItem::register('textaddon', 'SleepingOwl\Admin\ShowItems\TextAddon');
+		ShowItem::register('select', 'SleepingOwl\Admin\ShowItems\Select');
+		ShowItem::register('multiselect', 'SleepingOwl\Admin\ShowItems\MultiSelect');
+		//ShowItem::register('hidden', 'SleepingOwl\Admin\ShowItems\Hidden');
+		ShowItem::register('checkbox', \SleepingOwl\Admin\ShowItems\Checkbox::class);
 		ShowItem::register('ckeditor', \SleepingOwl\Admin\ShowItems\CKEditor::class);
-		//FormItem::register('custom', 'SleepingOwl\Admin\FormItems\Custom');
-		//FormItem::register('password', 'SleepingOwl\Admin\FormItems\Password');
-		//FormItem::register('textarea', 'SleepingOwl\Admin\FormItems\Textarea');
-		//FormItem::register('view', 'SleepingOwl\Admin\FormItems\View');
-		//FormItem::register('image', 'SleepingOwl\Admin\FormItems\Image');
-		//FormItem::register('images', 'SleepingOwl\Admin\FormItems\Images');
-		//FormItem::register('file', 'SleepingOwl\Admin\FormItems\File');
-		//FormItem::register('radio', 'SleepingOwl\Admin\FormItems\Radio');
+		ShowItem::register('custom', 'SleepingOwl\Admin\ShowItems\Custom');
+		//ShowItem::register('password', 'SleepingOwl\Admin\ShowItems\Password');
+		//ShowItem::register('textarea', 'SleepingOwl\Admin\ShowItems\Textarea');
+		ShowItem::register('view', 'SleepingOwl\Admin\ShowItems\View');
+		//ShowItem::register('image', 'SleepingOwl\Admin\ShowItems\Image');
+		//ShowItem::register('images', 'SleepingOwl\Admin\ShowItems\Images');
+		//ShowItem::register('file', 'SleepingOwl\Admin\ShowItems\File');
+		//ShowItem::register('radio', 'SleepingOwl\Admin\ShowItems\Radio');
 	}
 
 }
