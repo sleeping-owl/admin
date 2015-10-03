@@ -39,6 +39,7 @@ return [
 		'filter-goto'    => 'Mostrar',
 		'save'           => 'Guardar',
 		'cancel'         => 'Cancelar',
+		'back'           => 'Volver',
 		'download'       => 'Descargar',
 		'all'            => 'Todos',
 		'processing'     => '<i class="fa fa-5x fa-circle-o-notch fa-spin"></i>',

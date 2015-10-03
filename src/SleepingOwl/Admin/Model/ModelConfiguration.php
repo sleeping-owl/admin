@@ -3,6 +3,7 @@
 use Illuminate\Support\Str;
 use SleepingOwl\Admin\Interfaces\DisplayInterface;
 use SleepingOwl\Admin\Interfaces\FormInterface;
+use SleepingOwl\Admin\Interfaces\ShowInterface;
 use SleepingOwl\Admin\Repository\BaseRepository;
 
 class ModelConfiguration
@@ -13,6 +14,7 @@ class ModelConfiguration
 	protected $alias;
 	protected $title;
 	protected $display;
+	protected $show;
 	protected $create;
 	protected $edit;
 	protected $delete = true;
@@ -73,6 +75,16 @@ class ModelConfiguration
 		return $this;
 	}
 
+	public function show($show = null)
+	{
+		if (func_num_args() == 0 || is_numeric($show))
+		{
+			return $this->getShow($show);
+		}
+		$this->show = $show;
+		return $this;
+	}
+
 	public function edit($edit = null)
 	{
 		if ((func_num_args() == 0) || is_numeric($edit))
@@ -87,6 +99,14 @@ class ModelConfiguration
 	{
 		$this->create($callback);
 		$this->edit($callback);
+		return $this;
+	}
+
+	public function createAndEditAndShow($callback)
+	{
+		$this->create($callback);
+		$this->edit($callback);
+		$this->show($callback);
 		return $this;
 	}
 
@@ -129,6 +149,25 @@ class ModelConfiguration
 			$display->initialize();
 		}
 		return $display;
+	}
+
+	protected function getShow()
+	{
+		if (is_null($this->show))
+		{
+			return null;
+		}
+		$show = call_user_func($this->show, null);
+		if ($show instanceof DisplayInterface)
+		{
+			$show->setClass($this->class);
+			$show->initialize();
+		}
+		if ($show instanceof FormInterface)
+		{
+			$show->setAction($this->storeUrl());
+		}
+		return $show;
 	}
 
 	protected function getCreate()
@@ -174,6 +213,16 @@ class ModelConfiguration
 			$edit->setId($id);
 		}
 		return $edit;
+	}
+
+	public function fullShow($id)
+	{
+		$show = $this->show($id);
+		if ($show instanceof ShowInterface)
+		{
+			$show->setId($id);
+		}
+		return $show;
 	}
 
 	protected function getDelete($id)

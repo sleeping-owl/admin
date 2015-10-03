@@ -58,6 +58,16 @@ class AdminController extends Controller
 		return $this->render($model->title(), $edit);
 	}
 
+	public function getShow($model, $id)
+	{
+		$show = $model->fullShow($id);
+		if (is_null($show))
+		{
+			abort(404);
+		}
+		return $this->render($model->title(), $show);
+	}
+
 	public function postUpdate($model, $id)
 	{
 		$edit = $model->fullEdit($id);
