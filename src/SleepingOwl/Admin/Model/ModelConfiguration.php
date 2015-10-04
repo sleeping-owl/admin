@@ -12,6 +12,7 @@ class ModelConfiguration
 	protected $class;
 
 	protected $alias;
+	protected $alt_aliases = [];
 	protected $title;
 	protected $display;
 	protected $show;
@@ -52,6 +53,35 @@ class ModelConfiguration
 			return $this->alias;
 		}
 		$this->alias = $alias;
+		return $this;
+	}
+
+	/**
+	 * Add an alternative alias or an array of alternative aliases
+	 * @param string|array $alias
+	 * @return $this
+     */
+	public function alt_alias($alias)
+	{
+		$alias = (array) $alias;
+		$this->alt_aliases = array_merge($this->alt_aliases,$alias);
+		return $this;
+	}
+
+	/**
+	 * get alt_aliases array property or set the alt_aliases array property
+	 * @param null|string|array $alt_aliases
+	 * @return $this|array
+     */
+
+	public function alt_aliases($alt_aliases = null)
+	{
+		if (func_num_args() == 0)
+		{
+			return $this->alt_aliases;
+		}
+		$alt_aliases = (array) $alt_aliases;
+		$this->alt_aliases = $alt_aliases;
 		return $this;
 	}
 
