@@ -1,8 +1,11 @@
 <?php namespace SleepingOwl\Admin\Show;
 
 use AdminTemplate;
+use Config;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\View\View;
+use Input;
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Admin\Interfaces\DisplayInterface;
 use SleepingOwl\Admin\Interfaces\ShowInterface;
@@ -145,6 +148,48 @@ class ShowDefault implements Renderable, DisplayInterface, ShowInterface
 	}
 
 	/**
+	 * Get redirect back URL
+	 * @return array|string
+	 * @throws ModelNotFoundException
+	 */
+	protected function obtainRedirectBack(){
+		$redirect_back = Input::input('_redirectBack',null);
+		if ($redirect_back != null) {
+			return $this->beSureIsAbsoluteURL($redirect_back);
+		} else {
+			return $this->display_url($this->class);
+		}
+
+	}
+
+	protected function beSureIsAbsoluteURL($url) {
+		if (starts_with($url,'http://') || starts_with($url,'https://')) {
+			return $url;
+		} else {
+			if (starts_with($url,'/')) {
+				return URL::to('/') . $url;
+			} else {
+				return URL::to('/') . '/'. $url;
+			}
+		}
+	}
+
+	/**
+	 * Get display URL (list of item models)
+	 * @param $model
+	 * @return string
+	 * @throws ModelNotFoundException
+	 */
+	protected function display_url($model) {
+		if (array_key_exists($model,Admin::modelAliases())) {
+			$alias = Admin::modelAliases()[$model];
+			return URL::to('/') . '/' .  Config::get('admin.prefix') . '/' . $alias ;
+		} else {
+			throw new ModelNotFoundException;
+		}
+	}
+
+	/**
 	 * @return View
 	 */
 	public function render()
@@ -152,7 +197,7 @@ class ShowDefault implements Renderable, DisplayInterface, ShowInterface
 		$params = [
 			'items'    => $this->items(),
 			'instance' => $this->instance(),
-			'backUrl'  => session('_redirectBack', URL::previous()),
+			'backUrl'  => session('_redirectBack', $this->obtainRedirectBack()),
 		];
 		return view(AdminTemplate::view('show.' . $this->view), $params);
 	}
