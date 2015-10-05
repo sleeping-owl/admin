@@ -1,6 +1,7 @@
 <?php namespace SleepingOwl\Admin\Model;
 
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use SleepingOwl\Admin\Interfaces\DisplayInterface;
 use SleepingOwl\Admin\Interfaces\FormInterface;
 use SleepingOwl\Admin\Interfaces\ShowInterface;
@@ -20,6 +21,7 @@ class ModelConfiguration
 	protected $edit;
 	protected $delete = true;
 	protected $restore = true;
+	protected $acls_are_active = false;
 
 	function __construct($class)
 	{
@@ -53,6 +55,35 @@ class ModelConfiguration
 			return $this->alias;
 		}
 		$this->alias = $alias;
+		return $this;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function aclsAreActive()
+	{
+		return $this->acls_are_active;
+	}
+
+	/**
+	 * @param boolean $acls_are_active
+	 */
+	public function setAclsAreActive($acls_are_active)
+	{
+		$this->acls_are_active = $acls_are_active;
+	}
+
+	public function active_acls($active = null){
+		if ($active == null) {
+			return $this->acls_are_active;
+		}
+
+		if (is_bool($active)){
+			$this->acls_are_active = $active;
+		} else {
+			throw new InvalidArgumentException('active parameter have to be a boolean. Given value is: '. $active);
+		}
 		return $this;
 	}
 
