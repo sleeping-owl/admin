@@ -1,5 +1,6 @@
 <?php namespace SleepingOwl\Admin\Model;
 
+use Config;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use SleepingOwl\Admin\Interfaces\DisplayInterface;
@@ -27,6 +28,8 @@ class ModelConfiguration
 	{
 		$this->class = $class;
 		$this->setDefaultAlias();
+
+		if (Config::get('admin.acls_active_by_default')) $this->acls_are_active = true;
 	}
 
 	/**
