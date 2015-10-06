@@ -313,10 +313,9 @@ class ModelConfiguration
 		return route('admin.model', $parameters);
 	}
 
-	public function showUrl($parameters = [])
+	public function showUrl($id)
 	{
-		array_unshift($parameters, $this->alias());
-		return route('admin.model.show', $parameters);
+		return route('admin.model.show', [$this->alias(), $id]);
 	}
 
 	public function createUrl($parameters = [])
