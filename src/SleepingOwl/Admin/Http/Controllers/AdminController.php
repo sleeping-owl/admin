@@ -16,7 +16,7 @@ class AdminController extends Controller
 {
 
 	protected function check_acl($model,$action){
-		$model_undercase_name = Str::snake(class_basename($model->getClass()));
+		$model_undercase_name = strtolower(class_basename($model->getClass()));
 		if ($model->aclsAreActive() && Gate::denies($model_undercase_name . '-' . $action)) {
 			View::share('permission', $model_undercase_name.'-' . $action);
 			abort(403);
