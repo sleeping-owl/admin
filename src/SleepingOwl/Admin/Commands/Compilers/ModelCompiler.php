@@ -481,7 +481,11 @@ class ModelCompiler
 	{
 		if ($column = $this->getColumnInfo($name))
 		{
-			$type = $column->Type;
+            if(isset($column->Type)){
+				$type = $column->Type;
+            }elseif(isset($column->type)){
+                $type = $column->type;
+            }
 			$token = '(), ';
 			strtok($type, $token);
 
