@@ -16,7 +16,7 @@ class TemplateDefault implements TemplateInterface
 		AssetManager::addStyle('admin::default/css/font-awesome.min.css');
 
 		AssetManager::addScript(route('admin.lang'));
-		AssetManager::addScript('admin::default/js/jquery-1.11.0.js');
+		AssetManager::addScript('admin::default/js/jquery.min.js');
 		AssetManager::addScript('admin::default/js/bootstrap.min.js');
 		AssetManager::addScript('admin::default/js/sb-admin-2.js');
 		AssetManager::addScript('admin::default/js/metisMenu.min.js');

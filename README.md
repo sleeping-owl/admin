@@ -10,13 +10,13 @@ SleepingOwl Admin is administrative interface builder for Laravel.
 It includes:
 
  - [sb-admin-2 template](http://startbootstrap.com/template-overviews/sb-admin-2/)
- - [jQuery 1.11.0](http://jquery.org)
- - [Bootstrap v3.2.0](http://getbootstrap.com)
+ - [jQuery 2.1.4](http://jquery.org)
+ - [Bootstrap v3.3.5](http://getbootstrap.com)
  - [Chosen v1.4.2](http://harvesthq.github.io/chosen/)
- - [DataTables 1.10.0-dev](http://www.sprymedia.co.uk)
+ - [DataTables 1.10.0-dev](https://datatables.net/)
  - [Nestable jQuery Plugin](http://dbushell.github.io/Nestable/)
  - [Lightbox for Bootstrap 3](https://github.com/ashleydw/lightbox)
- - [Font Awesome 4.1.0](http://fontawesome.io)
+ - [Font Awesome 4.4.0](http://fontawesome.io)
  - [Metismenu 1.0.3](https://github.com/onokumus/metisMenu)
  - [morris.js v0.5.0]()
  - [bootbox.js v4.3.0](http://bootboxjs.com)
@@ -36,18 +36,19 @@ It includes:
 
  3. Add this to the facades in `config/app.php`:
 
-		'Admin'         => 'SleepingOwl\Admin\Admin',
-		'AdminAuth'     => 'SleepingOwl\AdminAuth\Facades\AdminAuth',
-		'Column'        => 'SleepingOwl\Admin\Columns\Column',
-		'ColumnFilter'  => 'SleepingOwl\Admin\ColumnFilters\ColumnFilter',
-		'Filter'        => 'SleepingOwl\Admin\Filter\Filter',
-		'AdminDisplay'  => 'SleepingOwl\Admin\Display\AdminDisplay',
-		'AdminForm'     => 'SleepingOwl\Admin\Form\AdminForm',
-		'AdminTemplate' => 'SleepingOwl\Admin\Templates\Facade\AdminTemplate',
-		'FormItem'      => 'SleepingOwl\Admin\FormItems\FormItem',
+		'Admin'         => SleepingOwl\Admin\Admin::class,
+		'AdminAuth'     => SleepingOwl\AdminAuth\Facades\AdminAuth::class,
+		'Column'        => SleepingOwl\Admin\Columns\Column::class,
+		'ColumnFilter'  => SleepingOwl\Admin\ColumnFilters\ColumnFilter::class,
+		'Filter'        => SleepingOwl\Admin\Filter\Filter::class,
+		'AdminDisplay'  => SleepingOwl\Admin\Display\AdminDisplay::class,
+		'AdminForm'     => SleepingOwl\Admin\Form\AdminForm::class,
+		'AdminTemplate' => SleepingOwl\Admin\Templates\Facade\AdminTemplate::class,
+		'FormItem'      => SleepingOwl\Admin\FormItems\FormItem::class,
 
  4. Run this command in terminal (if you want to know what exactly this command makes, see [install command documentation](http://sleeping-owl.github.io/en/Commands/Install.html)):
 
+		$ php artisan vendor:publish
 		$ php artisan admin:install
 
 ## Documentation
