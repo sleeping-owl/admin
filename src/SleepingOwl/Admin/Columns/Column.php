@@ -9,7 +9,7 @@ use SleepingOwl\Admin\Models\ModelItem;
  * Class Column
  *
  * @method static \SleepingOwl\Admin\Columns\Column\Image image($name, $label = null)
- * @method static \SleepingOwl\Admin\Columns\Column\String string($name, $label = null)
+ * @method static \SleepingOwl\Admin\Columns\Column\ColumnString string($name, $label = null)
  * @method static \SleepingOwl\Admin\Columns\Column\Date date($name, $label = null)
  * @method static \SleepingOwl\Admin\Columns\Column\Lists lists($name, $label = null)
  * @method static \SleepingOwl\Admin\Columns\Column\Count count($name, $label = null)
