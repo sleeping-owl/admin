@@ -51,11 +51,13 @@ class Column
 	/**
 	 * PHP7 support # Cannot use 'String' as class name as it is reserved
 	 *
+	 * @param $name
+	 * @param null $label
 	 * @return ColumnInterface
 	 */
-	public static function string($params)
+	public static function string($name, $label = null)
 	{
-		return self::__callStatic('ColumnString', $params);
+		return self::__callStatic('ColumnString', func_get_args());
 	}
 
 	/**
