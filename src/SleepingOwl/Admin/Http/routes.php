@@ -1,66 +1,67 @@
 <?php
-
-Route::get('login', [
-	'as'   => 'admin.login',
-	'uses' => 'AuthController@getLogin',
-]);
-
-Route::post('login', [
-	'as'   => 'admin.login.post',
-	'uses' => 'AuthController@postLogin',
-]);
-
-Route::get('assets/lang', [
-	'as'   => 'admin.lang',
-	'uses' => 'AdminController@getLang',
-]);
-
-Route::group([
-	'middleware' => config('admin.middleware'),
-], function ()
-{
-	Route::get('logout', [
-		'as'   => 'admin.logout',
-		'uses' => 'AuthController@getLogout',
+Route::group(['middleware'=>'web'], function() {
+	Route::get('login', [
+		'as'   => 'admin.login',
+		'uses' => 'AuthController@getLogin',
 	]);
 
-	Route::get('{adminModel}', [
-		'as'   => 'admin.model',
-		'uses' => 'AdminController@getDisplay'
+	Route::post('login', [
+		'as'   => 'admin.login.post',
+		'uses' => 'AuthController@postLogin',
 	]);
 
-	Route::get('{adminModel}/create', [
-		'as'   => 'admin.model.create',
-		'uses' => 'AdminController@getCreate',
+	Route::get('assets/lang', [
+		'as'   => 'admin.lang',
+		'uses' => 'AdminController@getLang',
 	]);
 
-	Route::post('{adminModel}', [
-		'as'   => 'admin.model.store',
-		'uses' => 'AdminController@postStore',
-	]);
+	Route::group([
+		'middleware' => config('admin.middleware'),
+	], function ()
+	{
+		Route::get('logout', [
+			'as'   => 'admin.logout',
+			'uses' => 'AuthController@getLogout',
+		]);
 
-	Route::get('{adminModel}/{adminModelId}/edit', [
-		'as'   => 'admin.model.edit',
-		'uses' => 'AdminController@getEdit',
-	]);
+		Route::get('{adminModel}', [
+			'as'   => 'admin.model',
+			'uses' => 'AdminController@getDisplay'
+		]);
 
-	Route::post('{adminModel}/{adminModelId}', [
-		'as'   => 'admin.model.update',
-		'uses' => 'AdminController@postUpdate',
-	]);
+		Route::get('{adminModel}/create', [
+			'as'   => 'admin.model.create',
+			'uses' => 'AdminController@getCreate',
+		]);
 
-	Route::delete('{adminModel}/{adminModelId}', [
-		'as'   => 'admin.model.destroy',
-		'uses' => 'AdminController@postDestroy',
-	]);
+		Route::post('{adminModel}', [
+			'as'   => 'admin.model.store',
+			'uses' => 'AdminController@postStore',
+		]);
 
-	Route::post('{adminModel}/{adminModelId}/restore', [
-		'as'   => 'admin.model.restore',
-		'uses' => 'AdminController@postRestore',
-	]);
+		Route::get('{adminModel}/{adminModelId}/edit', [
+			'as'   => 'admin.model.edit',
+			'uses' => 'AdminController@getEdit',
+		]);
 
-	Route::get('{adminWildcard}', [
-		'as'   => 'admin.wildcard',
-		'uses' => 'AdminController@getWildcard'
-	]);
+		Route::post('{adminModel}/{adminModelId}', [
+			'as'   => 'admin.model.update',
+			'uses' => 'AdminController@postUpdate',
+		]);
+
+		Route::delete('{adminModel}/{adminModelId}', [
+			'as'   => 'admin.model.destroy',
+			'uses' => 'AdminController@postDestroy',
+		]);
+
+		Route::post('{adminModel}/{adminModelId}/restore', [
+			'as'   => 'admin.model.restore',
+			'uses' => 'AdminController@postRestore',
+		]);
+
+		Route::get('{adminWildcard}', [
+			'as'   => 'admin.wildcard',
+			'uses' => 'AdminController@getWildcard'
+		]);
+	});
 });
