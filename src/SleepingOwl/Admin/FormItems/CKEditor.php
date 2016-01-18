@@ -1,7 +1,7 @@
 <?php namespace SleepingOwl\Admin\FormItems;
 
 use Exception;
-use Input;
+use Request;
 use Route;
 use SleepingOwl\Admin\AssetManager\AssetManager;
 use SleepingOwl\Admin\Interfaces\WithRoutesInterface;
@@ -80,7 +80,7 @@ class CKEditor extends NamedFormItem implements WithRoutesInterface
 		$minwidth = 10;
 		$minheight = 10;
 
-		$file = Input::file('upload');
+		$file = Request::file('upload');
 		$errors = [];
 
 		$extension = null;
@@ -133,7 +133,7 @@ class CKEditor extends NamedFormItem implements WithRoutesInterface
 
 		$finalFilename = $file->getClientOriginalName();
 		$file = $file->move($upload_dir, $finalFilename);
-		$CKEditorFuncNum = Input::get('CKEditorFuncNum');
+		$CKEditorFuncNum = Request::get('CKEditorFuncNum');
 		$url = asset($path . $finalFilename);
 		$message = trans('admin::lang.ckeditor.upload.success', [
 			'size'   => number_format($file->getSize() / 1024, 3, '.', ''),

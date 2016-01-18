@@ -24,7 +24,7 @@ class AdminAuthManager extends AuthManager {
 	 *
 	 * @return \Illuminate\Auth\EloquentUserProvider
 	 */
-	protected function createEloquentProvider()
+	protected function createEloquentProvider($config = null)
 	{
 		$model = Config::get('admin.auth.model');
 
@@ -38,7 +38,7 @@ class AdminAuthManager extends AuthManager {
 	 */
 	public function getDefaultDriver()
 	{
-		return 'eloquent';
+		return 'web';
 	}
 
 }

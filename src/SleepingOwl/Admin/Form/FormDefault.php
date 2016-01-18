@@ -3,7 +3,7 @@
 use AdminTemplate;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\View\View;
-use Input;
+use Request;
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Admin\Interfaces\DisplayInterface;
 use SleepingOwl\Admin\Interfaces\FormInterface;
@@ -203,7 +203,7 @@ class FormDefault implements Renderable, DisplayInterface, FormInterface
 				$rules += $item->getValidationRules();
 			}
 		});
-		$data = Input::all();
+		$data = Request::all();
 		$verifier = app('validation.presence');
 		$verifier->setConnection($this->instance()->getConnectionName());
 		$validator = Validator::make($data, $rules);

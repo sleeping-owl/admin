@@ -2,7 +2,7 @@
 
 use AdminTemplate;
 use Illuminate\Contracts\Support\Renderable;
-use Input;
+use Request;
 use Route;
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Admin\AssetManager\AssetManager;
@@ -99,7 +99,7 @@ class DisplayTree implements Renderable, DisplayInterface, WithRoutesInterface
 			'url'         => Admin::model($this->class)->displayUrl(),
 			'value'       => $this->value(),
 			'creatable'   => ! is_null($this->model()->create()),
-			'createUrl'   => $this->model()->createUrl($this->parameters() + Input::all()),
+			'createUrl'   => $this->model()->createUrl($this->parameters() + Request::all()),
 			'controls'    => [Column::treeControl()],
 		];
 		return view(AdminTemplate::view('display.tree'), $params);
@@ -114,7 +114,7 @@ class DisplayTree implements Renderable, DisplayInterface, WithRoutesInterface
 	{
 		Route::post('{adminModel}/reorder', function ($model)
 		{
-			$data = Input::get('data');
+			$data = Request::get('data');
 			$model->display()->repository()->reorder($data);
 		});
 	}

@@ -2,7 +2,7 @@
 
 use AdminTemplate;
 use Illuminate\Contracts\Support\Renderable;
-use Input;
+use Request;
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Admin\Columns\Column;
 use SleepingOwl\Admin\Helpers\ExceptionHandler;
@@ -125,9 +125,9 @@ class DisplayTable implements Renderable, DisplayInterface
 
 	protected function initializeAction()
 	{
-		$action = Input::get('_action');
-		$id = Input::get('_id');
-		$ids = Input::get('_ids');
+		$action = Request::get('_action');
+		$id = Request::get('_id');
+		$ids = Request::get('_ids');
 		if ( ! is_null($action) && ( ! is_null($id) || ! is_null($ids)))
 		{
 			$columns = array_merge($this->columns(), $this->actions());
@@ -249,7 +249,7 @@ class DisplayTable implements Renderable, DisplayInterface
 			'title'     => $this->title(),
 			'columns'   => $this->allColumns(),
 			'creatable' => ! is_null($this->model()->create()),
-			'createUrl' => $this->model()->createUrl($this->parameters() + Input::all()),
+			'createUrl' => $this->model()->createUrl($this->parameters() + Request::all()),
 			'actions'   => $this->actions(),
 		];
 	}

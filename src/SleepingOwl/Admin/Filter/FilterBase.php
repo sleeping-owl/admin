@@ -1,6 +1,6 @@
 <?php namespace SleepingOwl\Admin\Filter;
 
-use Input;
+use Request;
 use SleepingOwl\Admin\Interfaces\FilterInterface;
 
 abstract class FilterBase implements FilterInterface
@@ -63,7 +63,7 @@ abstract class FilterBase implements FilterInterface
 
 	public function initialize()
 	{
-		$parameters = Input::all();
+		$parameters = Request::all();
 		$value = $this->value();
 		if (is_null($value))
 		{

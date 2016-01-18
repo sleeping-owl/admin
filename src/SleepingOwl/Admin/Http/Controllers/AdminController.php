@@ -5,7 +5,7 @@ use App;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Input;
+use Request;
 use Redirect;
 use SleepingOwl\Admin\Interfaces\FormInterface;
 use SleepingOwl\Admin\Repository\BaseRepository;
@@ -40,12 +40,12 @@ class AdminController extends Controller
 			if ($validator = $create->validate($model))
 			{
 				return Redirect::back()->withErrors($validator)->withInput()->with([
-					'_redirectBack' => Input::get('_redirectBack'),
+					'_redirectBack' => Request::get('_redirectBack'),
 				]);
 			}
 			$create->save($model);
 		}
-		return Redirect::to(Input::get('_redirectBack', $model->displayUrl()));
+		return Redirect::to(Request::get('_redirectBack', $model->displayUrl()));
 	}
 
 	public function getEdit($model, $id)
@@ -70,12 +70,12 @@ class AdminController extends Controller
 			if ($validator = $edit->validate($model))
 			{
 				return Redirect::back()->withErrors($validator)->withInput()->with([
-					'_redirectBack' => Input::get('_redirectBack'),
+					'_redirectBack' => Request::get('_redirectBack'),
 				]);
 			}
 			$edit->save($model);
 		}
-		return Redirect::to(Input::get('_redirectBack', $model->displayUrl()));
+		return Redirect::to(Request::get('_redirectBack', $model->displayUrl()));
 	}
 
 	public function postDestroy($model, $id)
@@ -127,9 +127,9 @@ class AdminController extends Controller
 			'lang'   => $lang,
 			'ckeditor_cfg' => config('admin.ckeditor')
 		);
-		
+
 		$content = 'window.admin = '.json_encode($data) . ';';
-		
+
 		$response = new Response($content, 200, [
 			'Content-Type' => 'text/javascript',
 		]);
@@ -151,4 +151,4 @@ class AdminController extends Controller
 		abort(404);
 	}
 
-} 
+}
