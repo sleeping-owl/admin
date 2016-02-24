@@ -1,3 +1,9 @@
+# This repo is not maintained anymore.
+
+## Packet moved to https://github.com/LaravelRUS/SleepingOwlAdmin
+### Versions prior to 4 are no longer supported. Further versions are now developed by LaravelRUS community.
+
+
 ## Laravel 5 Admin Module
 
 [![Latest Stable Version](https://poser.pugx.org/sleeping-owl/admin/v/stable.svg)](https://packagist.org/packages/sleeping-owl/admin)
