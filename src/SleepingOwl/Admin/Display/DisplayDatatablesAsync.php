@@ -2,7 +2,7 @@
 
 use AdminTemplate;
 use Carbon\Carbon;
-use Input;
+use Request;
 use Route;
 use SleepingOwl\Admin\ColumnFilters\Date;
 use SleepingOwl\Admin\Columns\Column\DateTime;
@@ -78,7 +78,7 @@ class DisplayDatatablesAsync extends DisplayDatatables implements WithRoutesInte
 	public function render()
 	{
 		$params = $this->getParams();
-		$attributes = Input::all();
+		$attributes = Request::all();
 		array_unshift($attributes, $this->name());
 		array_unshift($attributes, $this->model()->alias());
 		$params['url'] = route('admin.model.async', $attributes);
@@ -101,7 +101,7 @@ class DisplayDatatablesAsync extends DisplayDatatables implements WithRoutesInte
 		$this->modifyQuery($query);
 		$this->applySearch($query);
 		$this->applyColumnSearch($query);
-		
+
 		if(is_null($this->distinct)){
 			$filteredCount = $query->count();
 		}
@@ -119,8 +119,8 @@ class DisplayDatatablesAsync extends DisplayDatatables implements WithRoutesInte
 	 */
 	protected function applyOffset($query)
 	{
-		$offset = Input::get('start', 0);
-		$limit = Input::get('length', 10);
+		$offset = Request::get('start', 0);
+		$limit = Request::get('length', 10);
 		if ($limit == -1)
 		{
 			return;
@@ -134,7 +134,7 @@ class DisplayDatatablesAsync extends DisplayDatatables implements WithRoutesInte
 	 */
 	protected function applyOrders($query)
 	{
-		$orders = Input::get('order', []);
+		$orders = Request::get('order', []);
 		foreach ($orders as $order)
 		{
 			$columnIndex = $order['column'];
@@ -154,7 +154,7 @@ class DisplayDatatablesAsync extends DisplayDatatables implements WithRoutesInte
 	 */
 	protected function applySearch($query)
 	{
-		$search = Input::get('search.value');
+		$search = Request::get('search.value');
 		if (is_null($search))
 		{
 			return;
@@ -179,7 +179,7 @@ class DisplayDatatablesAsync extends DisplayDatatables implements WithRoutesInte
 
 	protected function applyColumnSearch($query)
 	{
-		$queryColumns = Input::get('columns', []);
+		$queryColumns = Request::get('columns', []);
 		foreach ($queryColumns as $index => $queryColumn)
 		{
 			$search = array_get($queryColumn, 'search.value');
@@ -207,7 +207,7 @@ class DisplayDatatablesAsync extends DisplayDatatables implements WithRoutesInte
 		$columns = $this->allColumns();
 
 		$result = [];
-		$result['draw'] = Input::get('draw', 0);
+		$result['draw'] = Request::get('draw', 0);
 		$result['recordsTotal'] = $totalCount;
 		$result['recordsFiltered'] = $filteredCount;
 		$result['data'] = [];

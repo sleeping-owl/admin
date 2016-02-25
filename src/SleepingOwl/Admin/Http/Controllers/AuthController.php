@@ -4,7 +4,7 @@ use AdminTemplate;
 use App;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\MessageBag;
-use Input;
+use Request;
 use Redirect;
 use SleepingOwl\AdminAuth\Facades\AdminAuth;
 use Validator;
@@ -33,7 +33,7 @@ class AuthController extends Controller
 	public function postLogin()
 	{
 		$rules = config('admin.auth.rules');
-		$data = Input::only(array_keys($rules));
+		$data = Request::only(array_keys($rules));
 		$lang = trans('admin::validation');
 		if ($lang == 'admin::validation')
 		{
