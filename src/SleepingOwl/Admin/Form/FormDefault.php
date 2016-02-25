@@ -1,6 +1,7 @@
 <?php namespace SleepingOwl\Admin\Form;
 
 use AdminTemplate;
+use Config;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\View\View;
 use Input;
@@ -216,6 +217,48 @@ class FormDefault implements Renderable, DisplayInterface, FormInterface
 	}
 
 	/**
+	 * Get redirect back URL
+	 * @return array|string
+	 * @throws ModelNotFoundException
+     */
+	protected function obtainRedirectBack(){
+		$redirect_back = Input::input('_redirectBack',null);
+		if ($redirect_back != null) {
+			return $this->beSureIsAbsoluteURL($redirect_back);
+		} else {
+			return $this->display_url($this->class);
+		}
+
+	}
+
+	protected function beSureIsAbsoluteURL($url) {
+		if (starts_with($url,'http://') || starts_with($url,'https://')) {
+			return $url;
+		} else {
+			if (starts_with($url,'/')) {
+				return URL::to('/') . $url;
+			} else {
+				return URL::to('/') . '/'. $url;
+			}
+		}
+	}
+
+	/**
+	 * Get display URL (list of item models)
+	 * @param $model
+	 * @return string
+	 * @throws ModelNotFoundException
+     */
+	protected function display_url($model) {
+		if (array_key_exists($model,Admin::modelAliases())) {
+			$alias = Admin::modelAliases()[$model];
+			return URL::to('/') . '/' .  Config::get('admin.prefix') . '/' . $alias ;
+		} else {
+			throw new ModelNotFoundException;
+		}
+	}
+
+	/**
 	 * @return View
 	 */
 	public function render()
@@ -224,7 +267,7 @@ class FormDefault implements Renderable, DisplayInterface, FormInterface
 			'items'    => $this->items(),
 			'instance' => $this->instance(),
 			'action'   => $this->action,
-			'backUrl'  => session('_redirectBack', URL::previous()),
+			'backUrl'  => $this->obtainRedirectBack(),
 		];
 		return view(AdminTemplate::view('form.' . $this->view), $params);
 	}
