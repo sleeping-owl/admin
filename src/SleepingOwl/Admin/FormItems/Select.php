@@ -51,7 +51,6 @@ class Select extends NamedFormItem
 				$this->loadOptions();
 			}
 			$options = $this->options;
-			asort($options);
 			return $options;
 		}
 		$this->options = $options;
