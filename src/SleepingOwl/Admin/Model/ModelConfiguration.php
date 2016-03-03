@@ -221,5 +221,10 @@ class ModelConfiguration
 	{
 		return route('admin.model.restore', [$this->alias(), $id]);
 	}
+	
+	public function getClass()
+	{
+		return $this->class;
+	}
 
 }
