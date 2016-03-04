@@ -41,7 +41,10 @@ class StartSession
 		$cookie = $request->cookies->get($session->getName());
 		if ( ! is_null($cookie))
 		{
-			$session->setId($this->encrypter->decrypt($cookie));
+			try{
+				$session->setId($this->encrypter->decrypt($cookie));
+			}
+			catch (\Exception $exc){}
 		}
 
 		return $session;
