@@ -18,7 +18,7 @@ class AdminAuthServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app->bindShared('admin.auth', function($app)
+		$this->app->singleton('admin.auth', function($app)
 		{
 			return new AdminAuthManager($app);
 		});

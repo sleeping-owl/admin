@@ -32,7 +32,7 @@ class AdminServiceProvider extends ServiceProvider
 
 		$this->app->bind('SleepingOwl\Admin\Repositories\Interfaces\ModelRepositoryInterface', 'SleepingOwl\Admin\Repositories\ModelRepository');
 
-		$this->app->bindShared('SleepingOwl\Admin\Admin', function ($app)
+		$this->app->singleton('SleepingOwl\Admin\Admin', function ($app)
 		{
 			return Admin::instance();
 		});
@@ -51,7 +51,7 @@ class AdminServiceProvider extends ServiceProvider
 	 */
 	protected function registerFormBuilder()
 	{
-		$this->app->bindShared('SleepingOwl\Html\FormBuilder', function ($app)
+		$this->app->singleton('SleepingOwl\Html\FormBuilder', function ($app)
 		{
 			$htmlBuilder = $app->make('SleepingOwl\Html\HtmlBuilder');
 			$form = new FormBuilder($htmlBuilder, $app['url'], $app['session.store']->getToken());
