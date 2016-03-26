@@ -1,6 +1,6 @@
 {
     "name": "sleeping-owl/admin",
-    "description": "Aministrative interface builder for Laravel.",
+    "description": "Administrative interface builder for Laravel.",
     "homepage": "http://sleeping-owl.github.io",
     "keywords": ["laravel", "admin", "administrator"],
     "license": "MIT",
@@ -11,17 +11,17 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.5.9",
         "illuminate/support": "5.*",
         "intervention/image": "2.*",
         "intervention/imagecache": "2.*",
-        "doctrine/dbal": "~2.3",
+        "doctrine/dbal": "^2.5",
         "sleeping-owl/with-join": "1.*",
-        "illuminate/html": "~5.0"
+        "illuminate/html": "~5.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.*",
-        "mockery/mockery": "0.9.*"
+        "phpunit/phpunit": "~4.0",
+        "mockery/mockery": "0.9.*",
     },
     "autoload": {
         "psr-0": {
