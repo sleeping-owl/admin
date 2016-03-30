@@ -148,7 +148,7 @@ abstract class NamedFormItem extends BaseFormItem
 			{
 				$table = $this->instance()->getTable();
 				$item = 'unique:' . $table . ',' . $this->attribute();
-				if ($this->instance()->exists())
+				if ($this->instance()->exists)
 				{
 					$item .= ',' . $this->instance()->getKey();
 				}
