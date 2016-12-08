@@ -41,6 +41,7 @@ return [
 		'filter-goto'    => 'Перейти',
 		'save'           => 'Сохранить',
 		'cancel'         => 'Отменить',
+		'back'           => 'Back',
 		'download'       => 'Скачать',
 		'all'            => 'Все',
 		'processing'     => '<i class="fa fa-5x fa-circle-o-notch fa-spin"></i>',

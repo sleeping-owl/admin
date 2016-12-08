@@ -2,24 +2,36 @@
 
 use AdminTemplate;
 use App;
+use Gate;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Str;
 use Input;
 use Redirect;
 use SleepingOwl\Admin\Interfaces\FormInterface;
-use SleepingOwl\Admin\Repository\BaseRepository;
+use View;
 
 class AdminController extends Controller
 {
 
+	protected function check_acl($model,$action){
+		$model_undercase_name = strtolower(class_basename($model->getClass()));
+		if ($model->aclsAreActive() && Gate::denies($model_undercase_name . '-' . $action)) {
+			View::share('permission', $model_undercase_name.'-' . $action);
+			abort(403);
+		}
+	}
+
 	public function getDisplay($model)
 	{
+		$this->check_acl($model,'retrieve');
 		return $this->render($model->title(), $model->display());
 	}
 
 	public function getCreate($model)
 	{
+		$this->check_acl($model,'create');
 		$create = $model->create();
 		if (is_null($create))
 		{
@@ -30,6 +42,7 @@ class AdminController extends Controller
 
 	public function postStore($model)
 	{
+		$this->check_acl($model,'store');
 		$create = $model->create();
 		if (is_null($create))
 		{
@@ -50,6 +63,7 @@ class AdminController extends Controller
 
 	public function getEdit($model, $id)
 	{
+		$this->check_acl($model,'edit');
 		$edit = $model->fullEdit($id);
 		if (is_null($edit))
 		{
@@ -58,8 +72,20 @@ class AdminController extends Controller
 		return $this->render($model->title(), $edit);
 	}
 
+	public function getShow($model, $id)
+	{
+		$this->check_acl($model,'show');
+		$show = $model->fullShow($id);
+		if (is_null($show))
+		{
+			abort(404);
+		}
+		return $this->render($model->title(), $show);
+	}
+
 	public function postUpdate($model, $id)
 	{
+		$this->check_acl($model,'update');
 		$edit = $model->fullEdit($id);
 		if (is_null($edit))
 		{
@@ -80,6 +106,7 @@ class AdminController extends Controller
 
 	public function postDestroy($model, $id)
 	{
+		$this->check_acl($model,'destroy');
 		$delete = $model->delete($id);
 		if (is_null($delete))
 		{
@@ -91,6 +118,7 @@ class AdminController extends Controller
 
 	public function postRestore($model, $id)
 	{
+		$this->check_acl($model,'update');
 		$restore = $model->restore($id);
 		if (is_null($restore))
 		{

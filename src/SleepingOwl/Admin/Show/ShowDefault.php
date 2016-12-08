@@ -1,20 +1,20 @@
-<?php namespace SleepingOwl\Admin\Form;
+<?php namespace SleepingOwl\Admin\Show;
 
 use AdminTemplate;
 use Config;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\View\View;
 use Input;
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Admin\Interfaces\DisplayInterface;
-use SleepingOwl\Admin\Interfaces\FormInterface;
-use SleepingOwl\Admin\Interfaces\FormItemInterface;
+use SleepingOwl\Admin\Interfaces\ShowInterface;
+use SleepingOwl\Admin\Interfaces\ShowItemInterface;
 use SleepingOwl\Admin\Model\ModelConfiguration;
 use SleepingOwl\Admin\Repository\BaseRepository;
 use URL;
-use Validator;
 
-class FormDefault implements Renderable, DisplayInterface, FormInterface
+class ShowDefault implements Renderable, DisplayInterface, ShowInterface
 {
 
 	/**
@@ -34,14 +34,10 @@ class FormDefault implements Renderable, DisplayInterface, FormInterface
 	protected $repository;
 	/**
 	 * Form items
-	 * @var FormItemInterface[]
+	 * @var ShowItemInterface[]
 	 */
 	protected $items = [];
-	/**
-	 * Form action url
-	 * @var string
-	 */
-	protected $action;
+
 	/**
 	 * Form related model instance
 	 * @var mixed
@@ -71,24 +67,13 @@ class FormDefault implements Renderable, DisplayInterface, FormInterface
 		$items = $this->items();
 		array_walk_recursive($items, function ($item)
 		{
-			if ($item instanceof FormItemInterface)
+			if ($item instanceof ShowItemInterface)
 			{
 				$item->initialize();
 			}
 		});
 	}
 
-	/**
-	 * Set form action
-	 * @param string $action
-	 */
-	public function setAction($action)
-	{
-		if (is_null($this->action))
-		{
-			$this->action = $action;
-		}
-	}
 
 	/**
 	 * Set form class
@@ -104,8 +89,8 @@ class FormDefault implements Renderable, DisplayInterface, FormInterface
 
 	/**
 	 * Get or set form items
-	 * @param FormInterface[]|null $items
-	 * @return $this|FormInterface[]
+	 * @param ShowInterface[]|null $items
+	 * @return $this|ShowInterface[]
 	 */
 	public function items($items = null)
 	{
@@ -132,7 +117,7 @@ class FormDefault implements Renderable, DisplayInterface, FormInterface
 		$items = $this->items();
 		array_walk_recursive($items, function ($item) use ($instance)
 		{
-			if ($item instanceof FormItemInterface)
+			if ($item instanceof ShowItemInterface)
 			{
 				$item->setInstance($instance);
 			}
@@ -163,64 +148,10 @@ class FormDefault implements Renderable, DisplayInterface, FormInterface
 	}
 
 	/**
-	 * Save instance
-	 * @param $model
-	 */
-	public function save($model)
-	{
-		if ($this->model() != $model)
-		{
-			return null;
-		}
-		$items = $this->items();
-		array_walk_recursive($items, function ($item)
-		{
-			if ($item instanceof FormItemInterface)
-			{
-				$item->save();
-			}
-		});
-		$this->instance()->save();
-	}
-
-	/**
-	 * Validate data, returns null on success
-	 * @param mixed $model
-	 * @return Validator|null
-	 */
-	public function validate($model)
-	{
-		if ($this->model() != $model)
-		{
-			return null;
-		}
-
-		$rules = [];
-		$items = $this->items();
-		array_walk_recursive($items, function ($item) use (&$rules)
-		{
-			if ($item instanceof FormItemInterface)
-			{
-				$rules += $item->getValidationRules();
-			}
-		});
-		$data = Input::all();
-		$verifier = app('validation.presence');
-		$verifier->setConnection($this->instance()->getConnectionName());
-		$validator = Validator::make($data, $rules);
-		$validator->setPresenceVerifier($verifier);
-		if ($validator->fails())
-		{
-			return $validator;
-		}
-		return null;
-	}
-
-	/**
 	 * Get redirect back URL
 	 * @return array|string
 	 * @throws ModelNotFoundException
-     */
+	 */
 	protected function obtainRedirectBack(){
 		$redirect_back = Input::input('_redirectBack',null);
 		if ($redirect_back != null) {
@@ -248,7 +179,7 @@ class FormDefault implements Renderable, DisplayInterface, FormInterface
 	 * @param $model
 	 * @return string
 	 * @throws ModelNotFoundException
-     */
+	 */
 	protected function display_url($model) {
 		if (array_key_exists($model,Admin::modelAliases())) {
 			$alias = Admin::modelAliases()[$model];
@@ -266,10 +197,9 @@ class FormDefault implements Renderable, DisplayInterface, FormInterface
 		$params = [
 			'items'    => $this->items(),
 			'instance' => $this->instance(),
-			'action'   => $this->action,
-			'backUrl'  => $this->obtainRedirectBack(),
+			'backUrl'  => session('_redirectBack', $this->obtainRedirectBack()),
 		];
-		return view(AdminTemplate::view('form.' . $this->view), $params);
+		return view(AdminTemplate::view('show.' . $this->view), $params);
 	}
 
 	/**

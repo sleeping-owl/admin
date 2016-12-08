@@ -111,6 +111,7 @@ abstract class NamedFormItem extends BaseFormItem
 		{
 			return $value;
 		}
+
 		if ( ! is_null($instance) && ! is_null($value = $instance->getAttribute($this->attribute())))
 		{
 			return $value;

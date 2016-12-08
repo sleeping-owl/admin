@@ -70,6 +70,22 @@ class Admin
 	}
 
 	/**
+	 * @return string[]
+	 */
+	public static function modelAltAliases()
+	{
+		$alt_alias_models = array();
+		foreach (static::models() as $model) {
+			foreach ($model->alt_aliases() as $alt_alias) {
+				$alt_alias_models[$model->getClass()][] = $alt_alias;
+			}
+		}
+		return $alt_alias_models;
+	}
+
+
+
+	/**
 	 * @param $class
 	 * @return ModelConfiguration
 	 */

@@ -1,6 +1,6 @@
 {
-	"name": "sleeping-owl/admin",
-	"description": "Aministrative interface builder for Laravel.",
+	"name": "acacha/admin",
+	"description": "Aministrative interface builder for Laravel. Based on Sleeping Owl Admin",
 	"homepage": "http://sleeping-owl.github.io",
 	"keywords": [
 		"laravel",
@@ -13,7 +13,12 @@
 		{
 			"name": "Sleeping Owl",
 			"email": "owl.sleeping@yahoo.com"
-		}
+		},
+		{
+                        "name": "Sergi Tur Badenas",  
+                        "email": "sergiturbadenas@gmail.com"
+                }
+
 	],
 	"require": {
 		"php": ">=5.4.0",

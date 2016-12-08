@@ -39,6 +39,11 @@ Route::group([
 		'uses' => 'AdminController@postStore',
 	]);
 
+	Route::get('{adminModel}/{adminModelId}/show', [
+		'as'   => 'admin.model.show',
+		'uses' => 'AdminController@getShow',
+	]);
+
 	Route::get('{adminModel}/{adminModelId}/edit', [
 		'as'   => 'admin.model.edit',
 		'uses' => 'AdminController@getEdit',

@@ -1,26 +1,43 @@
 <?php namespace SleepingOwl\Admin\Model;
 
+use Config;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use SleepingOwl\Admin\Interfaces\DisplayInterface;
 use SleepingOwl\Admin\Interfaces\FormInterface;
+use SleepingOwl\Admin\Interfaces\ShowInterface;
 use SleepingOwl\Admin\Repository\BaseRepository;
 
 class ModelConfiguration
 {
 
 	protected $class;
+
 	protected $alias;
+	protected $alt_aliases = [];
 	protected $title;
 	protected $display;
+	protected $show;
 	protected $create;
 	protected $edit;
 	protected $delete = true;
 	protected $restore = true;
+	protected $acls_are_active = false;
 
 	function __construct($class)
 	{
 		$this->class = $class;
 		$this->setDefaultAlias();
+
+		if (Config::get('admin.acls_active_by_default')) $this->acls_are_active = true;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getClass()
+	{
+		return $this->class;
 	}
 
 	public function repository()
@@ -44,6 +61,64 @@ class ModelConfiguration
 		return $this;
 	}
 
+	/**
+	 * @return boolean
+	 */
+	public function aclsAreActive()
+	{
+		return $this->acls_are_active;
+	}
+
+	/**
+	 * @param boolean $acls_are_active
+	 */
+	public function setAclsAreActive($acls_are_active)
+	{
+		$this->acls_are_active = $acls_are_active;
+	}
+
+	public function active_acls($active = null){
+		if ($active == null) {
+			return $this->acls_are_active;
+		}
+
+		if (is_bool($active)){
+			$this->acls_are_active = $active;
+		} else {
+			throw new InvalidArgumentException('active parameter have to be a boolean. Given value is: '. $active);
+		}
+		return $this;
+	}
+
+	/**
+	 * Add an alternative alias or an array of alternative aliases
+	 * @param string|array $alias
+	 * @return $this
+     */
+	public function alt_alias($alias)
+	{
+		$alias = (array) $alias;
+		$this->alt_aliases = array_merge($this->alt_aliases,$alias);
+		return $this;
+	}
+
+	/**
+	 * get alt_aliases array property or set the alt_aliases array property
+	 * @param null|string|array $alt_aliases
+	 * @return $this|array
+     */
+
+	public function alt_aliases($alt_aliases = null)
+	{
+		if (func_num_args() == 0)
+		{
+			return $this->alt_aliases;
+		}
+		$alt_aliases = (array) $alt_aliases;
+		$this->alt_aliases = $alt_aliases;
+		return $this;
+	}
+
 	public function title($title = null)
 	{
 		if (func_num_args() == 0)
@@ -64,6 +139,16 @@ class ModelConfiguration
 		return $this;
 	}
 
+	public function show($show = null)
+	{
+		if (func_num_args() == 0 || is_numeric($show))
+		{
+			return $this->getShow($show);
+		}
+		$this->show = $show;
+		return $this;
+	}
+
 	public function edit($edit = null)
 	{
 		if ((func_num_args() == 0) || is_numeric($edit))
@@ -78,6 +163,14 @@ class ModelConfiguration
 	{
 		$this->create($callback);
 		$this->edit($callback);
+		return $this;
+	}
+
+	public function createAndEditAndShow($callback)
+	{
+		$this->create($callback);
+		$this->edit($callback);
+		$this->show($callback);
 		return $this;
 	}
 
@@ -120,6 +213,25 @@ class ModelConfiguration
 			$display->initialize();
 		}
 		return $display;
+	}
+
+	protected function getShow()
+	{
+		if (is_null($this->show))
+		{
+			return null;
+		}
+		$show = call_user_func($this->show, null);
+		if ($show instanceof DisplayInterface)
+		{
+			$show->setClass($this->class);
+			$show->initialize();
+		}
+		if ($show instanceof FormInterface)
+		{
+			$show->setAction($this->storeUrl());
+		}
+		return $show;
 	}
 
 	protected function getCreate()
@@ -167,6 +279,16 @@ class ModelConfiguration
 		return $edit;
 	}
 
+	public function fullShow($id)
+	{
+		$show = $this->show($id);
+		if ($show instanceof ShowInterface)
+		{
+			$show->setId($id);
+		}
+		return $show;
+	}
+
 	protected function getDelete($id)
 	{
 		if (is_callable($this->delete))
@@ -189,6 +311,11 @@ class ModelConfiguration
 	{
 		array_unshift($parameters, $this->alias());
 		return route('admin.model', $parameters);
+	}
+
+	public function showUrl($id)
+	{
+		return route('admin.model.show', [$this->alias(), $id]);
 	}
 
 	public function createUrl($parameters = [])

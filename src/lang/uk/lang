@@ -40,6 +40,7 @@ return [
 		'filter-goto'    => 'Перейти',
 		'save'           => 'Сохранити',
 		'cancel'         => 'Скасувати',
+		'back'           => 'Back',
 		'download'       => 'Завантажити',
 		'all'            => 'Все',
 		'processing'     => '<i class="fa fa-5x fa-circle-o-notch fa-spin"></i>',

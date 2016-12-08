@@ -47,17 +47,50 @@ class RouteServiceProvider extends ServiceProvider
 	protected function registerPatterns()
 	{
 		Route::pattern('adminModelId', '[0-9]+');
-		Route::pattern('adminModel', implode('|', Admin::modelAliases()));
+		if (count(Admin::modelAltAliases()) > 0) {
+			$pattern = implode('|', Admin::modelAliases());
+			foreach (Admin::modelAliases() as $model => $alias) {
+				if (array_key_exists($model,Admin::modelAltAliases())) {
+					foreach (Admin::modelAltAliases()[$model] as $alt_alias) {
+						$pattern = $pattern . '|' . $alt_alias;
+					}
+				}
+			}
+			Route::pattern('adminModel', $pattern);
+		} else {
+			Route::pattern('adminModel', implode('|', Admin::modelAliases()));
+		}
+
 		Route::bind('adminModel', function ($model)
 		{
 			$class = array_search($model, Admin::modelAliases());
 			if ($class === false)
 			{
-				throw new ModelNotFoundException;
+				$class = $this->alt_alias_exists($model);
+				if ($class === false) {
+					throw new ModelNotFoundException;
+				}
 			}
 			return Admin::model($class);
 		});
 		Route::pattern('adminWildcard', '.*');
+	}
+
+
+	/**
+	 *
+	 * Get model class for alt_alias or false if not found
+	 * @param $alt_alias_to_check
+	 * @return bool|int|string
+     */
+	protected function alt_alias_exists($alt_alias_to_check) {
+		foreach (Admin::modelAltAliases() as $model => $alt_aliases) {
+			$alt_aliases = (array) $alt_aliases;
+			foreach ($alt_aliases as $alt_alias) {
+				if ($alt_alias_to_check == $alt_alias) return $model;
+			}
+		}
+		return false;
 	}
 
 	protected function registerMiddleware()

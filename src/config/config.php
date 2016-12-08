@@ -58,4 +58,9 @@ return [
 	 * Checkout http://docs.ckeditor.com/#!/api/CKEDITOR.config for more information.
 	 */
 	'ckeditor' => [],
+
+	/*
+     * Active acls by default
+     */
+	'acls_active_by_default' => false
 ];
