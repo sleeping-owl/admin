@@ -435,10 +435,17 @@ class ModelCompiler
 		}
 		foreach ($this->columnsInfo as $column)
 		{
-			if ($column->Field === $name)
+                    if(isset($column->Field)){
+                        if ($column->Field === $name)
 			{
 				return $column;
 			}
+                    }elseif(isset($column->field)){
+                        if ($column->field === $name)
+			{
+				return $column;
+			}
+                    }
 		}
 		return null;
 	}
@@ -451,10 +458,17 @@ class ModelCompiler
 	{
 		if ($column = $this->getColumnInfo($name))
 		{
-			if (strpos($column->Type, 'enum') !== false)
-			{
-				return true;
-			}
+                        if(isset($column->Type)){
+                                if (strpos($column->Type, 'enum') !== false)
+                                {
+                                        return true;
+                                }
+                        } elseif(isset($column->type)){
+                                if (strpos($column->type, 'enum') !== false)
+                                {
+                                        return true;
+                                }
+                        }
 		}
 		return false;
 	}
@@ -467,7 +481,12 @@ class ModelCompiler
 	{
 		if ($column = $this->getColumnInfo($name))
 		{
+                    if(isset($column->Type)){
 			$type = $column->Type;
+                    }elseif(isset($column->type)){
+                        $type = $column->type;
+                    }
+                    
 			$token = '(), ';
 			strtok($type, $token);
 
@@ -494,4 +513,4 @@ class ModelCompiler
 		]);
 	}
 
-} 
+}

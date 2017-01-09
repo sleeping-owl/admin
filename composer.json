@@ -1,38 +1,42 @@
 {
-	"name": "sleeping-owl/admin",
-	"description": "Aministrative interface builder for Laravel.",
-	"homepage": "http://sleeping-owl.github.io",
-	"keywords": [
-		"laravel",
-		"admin",
-		"administrator",
-		"crud"
-	],
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Sleeping Owl",
-			"email": "owl.sleeping@yahoo.com"
-		}
-	],
-	"require": {
-		"php": ">=5.4.0",
-		"illuminate/support": "5.*",
-		"doctrine/dbal": "~2.3"
-	},
-	"require-dev": {
-		"phpunit/phpunit": "4.*",
-		"orchestra/testbench": "3.*"
-	},
-	"autoload": {
-		"psr-0": {
-			"SleepingOwl\\Admin": "src/"
-		}
-	},
-	"autoload-dev": {
-		"classmap": [
-			"tests/TestBase.php",
-			"tests/models"
-		]
-	}
+    "name": "andrey-helldar/admin",
+    "description": "Aministrative interface builder for Laravel.",
+    "homepage": "http://sleeping-owl.github.io",
+    "keywords": [
+        "laravel",
+        "admin",
+        "administrator",
+        "crud"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sleeping Owl",
+            "email": "owl.sleeping@yahoo.com"
+        },
+        {
+            "name": "Andrey Helldar",
+            "email": "helldar@ai-rus.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "5.*",
+        "doctrine/dbal": "~2.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*",
+        "orchestra/testbench": "3.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "SleepingOwl\\Admin": "src/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestBase.php",
+            "tests/models"
+        ]
+    }
 }
