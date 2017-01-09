@@ -5,6 +5,10 @@ use SleepingOwl\DateFormatter\DateFormatter;
 class Timestamp extends Time
 {
 	/**
+	 * @var bool
+	 */
+	protected $showSeconds = false;
+	/**
 	 * @return mixed
 	 */
 	public function render()
