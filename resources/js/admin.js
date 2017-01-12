@@ -120,6 +120,7 @@ $(function ()
 		$('.multiselect').multiselect({
 			nonSelectedText: window.admin.lang.select.nothing,
 			nSelectedText: window.admin.lang.select.selected,
+			enableFiltering: true,
 			onChange: function(option, checked)
 			{
 				var select = this.$select;
