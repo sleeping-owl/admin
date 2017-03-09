@@ -139,7 +139,7 @@ class ModelItemTest extends AdminTest
 	/** @test */
 	public function it_stores_columns()
 	{
-		$column = Mockery::mock('\SleepingOwl\Admin\Columns\Column\String');
+		$column = Mockery::mock('\SleepingOwl\Admin\Columns\Column\ColumnString');
 
 		$modelItem = new ModelItem('\Foo\Bar\Model');
 		$modelItem->addColumn($column);
